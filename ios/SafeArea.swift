@@ -1,5 +1,5 @@
 import Foundation
-import UIKIT
+import UIKit
 import React
 
 @objc(SafeArea)
