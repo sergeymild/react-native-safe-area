@@ -17,4 +17,5 @@ import { safeArea } from 'react-native-safe-area';
 
 safeArea.topSafeArea
 safeArea.bottomSafeArea
+safeArea.statusBarHeight
 ```

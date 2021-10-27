@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform, StatusBar } from 'react-native';
 
 const LINKING_ERROR =
   `The package 'react-native-safe-area' doesn't seem to be linked. Make sure: \n\n` +
@@ -31,6 +31,11 @@ class SafeArea {
   get topSafeArea(): number {
     if (Platform.OS === 'android') return 0;
     return this.constants.insetTop;
+  }
+
+  get statusBarHeight(): number {
+    if (Platform.OS === 'android') return StatusBar.currentHeight ?? 0;
+    return this.constants.statusBarHeight;
   }
 }
 
