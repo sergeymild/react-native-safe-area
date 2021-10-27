@@ -1,8 +1,16 @@
-@objc(SafeArea)
-class SafeArea: NSObject {
+import Foundation
+import React
 
-    @objc(multiply:withB:withResolver:withRejecter:)
-    func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-        resolve(a*b)
+@objc(SafeArea)
+class SafeArea: RCTEventEmitter {
+
+    override class func requiresMainQueueSetup() -> Bool { true }
+    override func supportedEvents() -> [String]! { [] }
+    
+    override func constantsToExport() -> [AnyHashable : Any]! {
+      let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+      let topPadding = window?.rootViewController?.view.safeAreaInsets.top
+      let bottomPadding = window?.rootViewController?.view.safeAreaInsets.bottom
+      return ["insetTop": topPadding ?? 0, "insetBottom": bottomPadding ?? 0]
     }
 }

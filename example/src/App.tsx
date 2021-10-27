@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-safe-area';
+import { StyleSheet, Text, View } from 'react-native';
+import { safeArea } from 'react-native-safe-area';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    console.log('-----', safeArea.topSafeArea, safeArea.bottomSafeArea);
   }, []);
 
   return (

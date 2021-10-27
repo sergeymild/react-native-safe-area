@@ -6,7 +6,7 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const SafeArea = NativeModules.SafeArea
+const SA = NativeModules.SafeArea
   ? NativeModules.SafeArea
   : new Proxy(
       {},
@@ -17,6 +17,21 @@ const SafeArea = NativeModules.SafeArea
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return SafeArea.multiply(a, b);
+class SafeArea {
+  private constants: Record<string, any> = {};
+  constructor() {
+    this.constants = SA.getConstants();
+  }
+
+  get bottomSafeArea(): number {
+    if (Platform.OS === 'android') return 16;
+    return this.constants.insetBottom === 0 ? 16 : this.constants.insetBottom;
+  }
+
+  get topSafeArea(): number {
+    if (Platform.OS === 'android') return 0;
+    return this.constants.insetTop;
+  }
 }
+
+export const safeArea = new SafeArea();

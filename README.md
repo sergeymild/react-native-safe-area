@@ -5,23 +5,16 @@ React Native Safe Area
 ## Installation
 
 ```sh
-npm install react-native-safe-area
+"react-native-safe-area":""
 ```
 
 ## Usage
 
 ```js
-import { multiply } from "react-native-safe-area";
+import { safeArea } from 'react-native-safe-area';
 
 // ...
 
-const result = await multiply(3, 7);
+safeArea.topSafeArea
+safeArea.bottomSafeArea
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
