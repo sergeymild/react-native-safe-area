@@ -5,7 +5,7 @@ React Native Safe Area
 ## Installation
 
 ```sh
-"react-native-safe-area":""
+"react-native-safe-area":"sergeymild/react-native-safe-area"
 ```
 
 ## Usage
