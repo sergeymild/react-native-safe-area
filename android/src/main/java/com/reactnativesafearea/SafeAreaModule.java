@@ -36,15 +36,23 @@ public class SafeAreaModule extends ReactContextBaseJavaModule {
   @Override
   public Map<String, Object> getConstants() {
     View rootView = getCurrentActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+    int statusBarIdentifier = getCurrentActivity()
+      .getResources()
+      .getIdentifier("status_bar_height", "dimen", "android");
+    int navigationBarIdentifier = getCurrentActivity()
+      .getResources()
+      .getIdentifier("navigation_bar_height", "dimen", "android");
+
     EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(rootView);
-    HashMap<String, Object> constants = new HashMap<>(3);
+    HashMap<String, Object> constants = new HashMap<>(4);
     if (insets == null) return constants;
     constants.put("insetTop", PixelUtil.toDIPFromPixel(insets.top));
     constants.put("insetBottom", PixelUtil.toDIPFromPixel(insets.bottom));
     constants.put("statusBarHeight", PixelUtil.toDIPFromPixel(
-      getCurrentActivity()
-        .getResources()
-        .getIdentifier("status_bar_height", "dimen", "android")
+      getCurrentActivity().getResources().getDimension(statusBarIdentifier)
+    ));
+    constants.put("navigationBarHeight", PixelUtil.toDIPFromPixel(
+      getCurrentActivity().getResources().getDimension(navigationBarIdentifier)
     ));
     return constants;
   }
