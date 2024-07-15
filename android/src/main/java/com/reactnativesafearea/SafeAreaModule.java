@@ -23,12 +23,21 @@ public class SafeAreaModule extends ReactContextBaseJavaModule {
     }
 
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    public void multiply(int a, int b, Promise promise) {
-        promise.resolve(a * b);
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    int getBottomInset() {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return 0;
+        WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(activity.getWindow().getDecorView());
+        if (insets == null) return 0;
+        return insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
     }
 
-    public static native int nativeMultiply(int a, int b);
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    int getTopInset() {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return 0;
+        WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(activity.getWindow().getDecorView());
+        if (insets == null) return 0;
+        return insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+    }
 }
