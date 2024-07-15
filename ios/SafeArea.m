@@ -2,5 +2,5 @@
 #import <React/RCTEventEmitter.h>
 
 @interface RCT_EXTERN_MODULE(SafeArea, RCTEventEmitter)
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getActualSafeArea);
+RCT_EXTERN_METHOD(getActualSafeArea:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject);
 @end

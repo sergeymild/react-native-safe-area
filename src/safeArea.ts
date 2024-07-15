@@ -18,7 +18,8 @@ const SA = NativeModules.SafeArea
     );
 
 class SafeArea {
-  private constants: Record<string, any> = {};
+  // @ts-ignore
+  private constants: {insetTop: number; insetBottom: number; statusBarHeight: number} = {};
   constructor() {
     this.constants = SA.getConstants();
   }
@@ -31,6 +32,21 @@ class SafeArea {
   get topSafeArea(): number {
     if (Platform.OS === 'android') return 0;
     return this.constants.insetTop;
+  }
+
+  async actualSafeArea(): Promise<{insetTop: number; insetBottom: number; statusBarHeight: number}> {
+    if (Platform.OS === 'android') return {insetBottom: 0, insetTop: 0, statusBarHeight: 0};
+    return SA.getActualSafeArea();
+  }
+
+  get androidTopInset(): number {
+    if (Platform.OS === 'ios') return 0;
+    return SA.getTopInset();
+  }
+
+  get androidBottomInset(): number {
+    if (Platform.OS === 'ios') return 0;
+    return SA.getBottomInset();
   }
 
   get statusBarHeight(): number {
